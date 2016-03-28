@@ -1,0 +1,124 @@
+<!DOCTYPE html5>
+<html >
+<head>
+  <meta charset = "UTF-8">
+  <title>pi</title>
+  <style type = "text/css">
+  body {
+    margin: 0;
+  }
+  #container {
+    background-color: #ddd;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px;
+  }
+  .item {
+    background-color: #ba55d3;
+    height: 1px;
+    margin: 0px;
+  }
+  </style>
+</head>
+<body>
+  <div id = "container"> 
+  </div>
+  <script type = "text/javascript">
+//冒泡排序
+    function bubblesort(a, render)
+    {
+      for (var i = 0; i < a.length; i++)
+        {
+          for (var j = 0; j < a.length-i-1; j++)
+           {
+            if (a[j] < a[j+1]) 
+            {
+              var b = a[j];
+              a[j] = a[j+1];
+              a[j+1] = b; 
+              render();
+            // alert('Continue?');
+            }
+          } 
+      }
+      return a;
+    }
+    //插入排序
+    function insersort(a,render)
+    {
+      for (var i = 1; i < a.length; i++) {
+        var temp = a[i];
+        for (var j = i; j > 0; j--) {
+          if (a[j - 1] > temp) {
+            var b = a[j];
+            a[j] = a[j-1];
+            a[j-1] = b;
+            render();
+            // alert('Continue?');
+          }else{
+            break;
+          } 
+        }
+      }
+      return a;
+    }
+    //选择排序
+    function selectsort(a,render){
+      for (var i = 0; i < a.length - 1; i++) {
+        for (var j = i + 1; j < a.length; j++) {
+          if (a[j] < a[i]) {
+            var b = a[i];
+             a[i] = a[j];
+             a[j] = b;
+             render();
+             // alert('Continue?');
+          }
+        }
+        }
+        return a;
+      }
+
+    var a = [];
+    for (var index = 0; index < 1000; index++) {
+      a.push(Math.random() * 100);
+    }
+    var max = findMax(a);
+    function draw () {
+      var container = document.getElementById('container');
+      container.innerHTML = '';
+      for (var i = 0; i < a.length; i++) {
+        var div = document.createElement('div');
+        div.className = 'item';
+        var width = a[i] / max * 100;
+        div.style.width = width + '%';
+        container.appendChild(div);
+      }
+    }
+    function startSorta() {
+      draw();
+      bubblesort(a, draw);
+    }
+    function startSortb(){
+      draw();
+      insersort(a,draw);
+    }
+    function startSortc(){
+      draw();
+      selectsort(a,draw);
+    }
+
+    function findMax (a) {
+      var maxb = a[0];
+      for (var i = 0; i < a.length; i++) {
+        if (a[i] > maxb) {
+          maxb=a[i];
+        } 
+      }
+      return maxb;
+    }
+  </script>
+    <button onclick="startSorta()">冒泡排序</button>
+    <button onclick="startSortb()">插入排序</button>
+    <button onclick="startSortc()">选择排序</button>  
+</body>
+</html>
